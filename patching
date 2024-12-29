@@ -1,0 +1,779 @@
+Patching process In Oracle
+Patching Process In Oracle
+Create a folder for patch
+1
+[oracle@node1 ~]$ mkdir -p /data/patch
+2 . By Winscp move the patch zip file to /data/patch this location. 3. Now check the current opatch version.
+1
+2
+3
+[oracle@node1 ~]$ $ORACLE_HOME/OPatch/opatch version
+OPatch Version: 12.2.0.1.17
+OPatch succeeded.
+#if the opatch version is old , then you have to replace it with the latest version. here it is 12.2.0.1.17. so let’s upgrade it.
+1
+2
+3
+4
+[oracle@node1 ~]$ cd $ORACLE_HOME
+[oracle@node1 dbhome_3]$
+[oracle@node1 dbhome_3]$
+[oracle@node1 dbhome_3]$ mv OPatch/ OPatch_old
+Now unzip the zip file to ORACLE_HOME LOCATION.
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+[oracle@node1 ~]$ cd /data/patch
+[oracle@node1 patch]$
+[oracle@node1 patch]$
+[oracle@node1 patch]$ ll
+total 2680620
+-rw-r--r--. 1 oracle oinstall 2622069290 Aug  2 16:49 p33509923_190000_Linux-x86-64.zip
+-rw-r--r--. 1 oracle oinstall  122883929 Oct 29 13:02 p6880880_122010_Linux-latest-opatch-x86-64.zip
+[oracle@node1 patch]$
+[oracle@node1 patch]$
+[oracle@node1 patch]$ unzip p6880880_122010_Linux-latest-opatch-x86-64.zip -d $ORACLE_HOME
+Archive:  p6880880_122010_Linux-latest-opatch-x86-64.zip
+   creating: /data/app/oracle/product/19C/dbhome_3/OPatch/
+  inflating: /data/app/oracle/product/19C/dbhome_3/OPatch/README.txt
+  inflating: /data/app/oracle/product/19C/dbhome_3/OPatch/datapatch
+  inflating: /data/app/oracle/product/19C/dbhome_3/OPatch/emdpatch.pl
+  inflating: /data/app/oracle/product/19C/dbhome_3/OPatch/operr_readme.txt
+   creating: /data/app/oracle/product/19C/dbhome_3/OPatch/scripts/
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+inflating: /data/app/oracle/product/19C/dbhome_3/OPatch/modules/thirdparty/xercesImpl-2.12.0.jar
+   creating: /data/app/oracle/product/19C/dbhome_3/OPatch/modules/thirdparty/features/
+  inflating: /data/app/oracle/product/19C/dbhome_3/OPatch/modules/thirdparty/features/xercesimpl.jar
+  inflating: /data/app/oracle/product/19C/dbhome_3/OPatch/modules/thirdparty/features/xercesimpl_2.12.0.0.0.jar
+  inflating: /data/app/oracle/product/19C/dbhome_3/OPatch/modules/com.oracle.glcm.patch.opatch-common-api-schema_13.9.5.0.jar
+  inflating: /data/app/oracle/product/19C/dbhome_3/OPatch/modules/com.sun.xml.bind.jaxb-xjc.jar
+  inflating: /data/app/oracle/product/19C/dbhome_3/OPatch/modules/com.oracle.glcm.patch.opatch-common-api-interfaces_13.9.5.0.jar
+Now again check the opatch verion :
+1
+2
+3
+4
+[oracle@node1 patch]$ $ORACLE_HOME/OPatch/opatch version
+OPatch Version: 12.2.0.1.29
+OPatch succeeded.
+[oracle@node1 patch]$
+#now its 12.2.0.1.29
+Now unzip p33509923_190000_Linux-x86-64.zip to same location.
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+[oracle@node1 patch]$ ll
+total 2680620
+-rw-r--r--. 1 oracle oinstall 2622069290 Aug  2 16:49 p33509923_190000_Linux-x86-64.zip
+-rw-r--r--. 1 oracle oinstall  122883929 Oct 29 13:02 p6880880_122010_Linux-latest-opatch-x86-64.zip
+[oracle@node1 patch]$
+[oracle@node1 patch]$
+[oracle@node1 patch]$ unzip p33509923_190000_Linux-x86-64.zip
+Archive:  p33509923_190000_Linux-x86-64.zip
+   creating: 33509923/
+   creating: 33509923/33575402/
+  inflating: 33509923/33575402/README.txt
+   creating: 33509923/33575402/etc/
+   creating: 33509923/33575402/etc/config/
+  inflating: 33509923/33575402/etc/config/inventory.xml
+  inflating: 33509923/33575402/etc/config/actions.xml
+   creating: 33509923/33575402/files/
+   creating: 33509923/33575402/files/wlm/
+   creating: 33509923/33575402/files/wlm/mesg/
+.
+.
+.
+.
+.
+.
+.
+.
+.
+ inflating: 33509923/33529556/files/crs/sbs/logging.properties.sbs
+  inflating: 33509923/33529556/files/crs/sbs/rootcrs.sbs
+  inflating: 33509923/33529556/files/crs/sbs/ohasd.sles.sbs
+  inflating: 33509923/33529556/files/crs/sbs/crsconfig_dirs.sbs
+   creating: 33509923/33529556/etc/
+   creating: 33509923/33529556/etc/config/
+  inflating: 33509923/33529556/etc/config/inventory.xml
+  inflating: 33509923/33529556/etc/config/actions.xml
+  inflating: 33509923/33529556/README.txt
+  inflating: PatchSearch.xml
+[oracle@node1 patch]$
+now give all permissions to patch
+1
+2
+[oracle@node1 patch]$ cd ..
+[oracle@node1 data]$ chmod -R 777 patch/
+8. Check Conflicts
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+[oracle@node1 data]$ $ORACLE_HOME/OPatch/opatch prereq CheckConflictAgainstOHWithDetail -phBaseDir /data/patch/33509923/33515361
+Oracle Interim Patch Installer version 12.2.0.1.29
+Copyright (c) 2022, Oracle Corporation. All rights reserved.
+PREREQ session
+ 
+Oracle Home       : /data/app/oracle/product/19C/dbhome_3
+Central Inventory : /data/app/oraInventory
+   from           : /data/app/oracle/product/19C/dbhome_3/oraInst.loc
+OPatch version    : 12.2.0.1.29
+OUI version       : 12.2.0.7.0
+Log file location : /data/app/oracle/product/19C/dbhome_3/cfgtoollogs/opatch/opatch2022-10-29_14-29-57PM_1.log
+ 
+Invoking prereq "checkconflictagainstohwithdetail"
+ 
+Prereq "checkConflictAgainstOHWithDetail" passed.
+ 
+OPatch succeeded.
+[oracle@node1 data]$
+9.
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+[oracle@node1 ~]$ $ORACLE_HOME/OPatch/opatch prereq CheckConflictAgainstOHWithDetail -phBaseDir /data/patch/33509923/33529556
+Oracle Interim Patch Installer version 12.2.0.1.29
+Copyright (c) 2022, Oracle Corporation. All rights reserved.
+ 
+PREREQ session
+ 
+Oracle Home : /data/app/oracle/product/19C/dbhome_3
+Central Inventory : /data/app/oraInventory
+from : /data/app/oracle/product/19C/dbhome_3/oraInst.loc
+OPatch version : 12.2.0.1.29
+OUI version : 12.2.0.7.0
+Log file location : /data/app/oracle/product/19C/dbhome_3/cfgtoollogs/opatch/opatch2022-10-29_14-32-11PM_1.log
+ 
+Invoking prereq "checkconflictagainstohwithdetail"
+ 
+Prereq "checkConflictAgainstOHWithDetail" passed.
+ 
+OPatch succeeded.
+[oracle@node1 ~]$
+now create /tmp/patch_list_gihome.txt file and add
+1
+2
+/data/patch/33509923/33515361
+/data/patch/33509923/33529556
+ these 2 lines in it .
+1
+2
+3
+4
+[oracle@node1 data]$ cd
+[oracle@node1 ~]$
+[oracle@node1 ~]$ vi /tmp/patch_list_gihome.txt
+[oracle@node1 ~]$
+now check whether there is any systemspace issue
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+[oracle@node1 ~]$ $ORACLE_HOME/OPatch/opatch prereq CheckSystemSpace -phBaseFile /tmp/patch_list_gihome.txt
+Oracle Interim Patch Installer version 12.2.0.1.29
+Copyright (c) 2022, Oracle Corporation.  All rights reserved.
+ 
+PREREQ session
+ 
+Oracle Home       : /data/app/oracle/product/19C/dbhome_3
+Central Inventory : /data/app/oraInventory
+   from           : /data/app/oracle/product/19C/dbhome_3/oraInst.loc
+OPatch version    : 12.2.0.1.29
+OUI version       : 12.2.0.7.0
+Log file location : /data/app/oracle/product/19C/dbhome_3/cfgtoollogs/opatch/opatch2022-10-29_14-35-56PM_1.log
+ 
+Invoking prereq "checksystemspace"
+ 
+Prereq "checkSystemSpace" passed.
+ 
+OPatch succeeded.
+so there is no systemspace issue.
+now connect to sqlplus utility and check for invalid object count
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+[oracle@node1 ~]$ sqlplus / as sysdba
+ 
+SQL*Plus: Release 19.0.0.0.0 - Production on Sat Oct 29 14:38:50 2022
+Version 19.3.0.0.0
+ 
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+ 
+Connected to an idle instance.
+ 
+SQL> startup
+ORACLE instance started.
+ 
+Total System Global Area 1744828000 bytes
+Fixed Size                  9135712 bytes
+Variable Size             419430400 bytes
+Database Buffers         1308622848 bytes
+Redo Buffers                7639040 bytes
+Database mounted.
+Database opened.
+SQL>
+SQL> select count (*) invalid_objects from user_objects where status = 'INVALID' ;
+ 
+INVALID_OBJECTS
+---------------
+              0
+ 
+SQL>
+SQL> shu immediate;
+Database closed.
+Database dismounted.
+ORACLE instance shut down.
+SQL>
+SQL>
+SQL> exit
+Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+Now go to patch folder and execute apply command.
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+[oracle@node1 ~]$ cd /data/patch
+[oracle@node1 patch]$ ll
+total 2682068
+drwxrwxrwx. 8 oracle oinstall       4096 Jan 13  2022 33509923
+-rwxrwxrwx. 1 oracle oinstall 2622069290 Aug  2 16:49 p33509923_190000_Linux-x86-64.zip
+-rwxrwxrwx. 1 oracle oinstall  122883929 Oct 29 13:02 p6880880_122010_Linux-latest-opatch-x86-64.zip
+-rwxrwxrwx. 1 oracle oinstall    1478442 Jan 20  2022 PatchSearch.xml
+[oracle@node1 patch]$ cd 33509923/
+[oracle@node1 33509923]$
+[oracle@node1 33509923]$
+[oracle@node1 33509923]$ ll
+total 136
+drwxrwxrwx. 4 oracle oinstall     48 Jan 13  2022 33239955
+drwxrwxrwx. 5 oracle oinstall     81 Jan 13  2022 33515361
+drwxrwxrwx. 5 oracle oinstall     62 Jan 13  2022 33529556
+drwxrwxrwx. 5 oracle oinstall     62 Jan 13  2022 33534448
+drwxrwxrwx. 4 oracle oinstall     48 Jan 13  2022 33575402
+drwxrwxrwx. 2 oracle oinstall   4096 Jan 13  2022 automation
+-rwxrwxrwx. 1 oracle oinstall   5824 Jan 13  2022 bundle.xml
+-rwxrwxrwx. 1 oracle oinstall 123797 Jan 20  2022 README.html
+-rwxrwxrwx. 1 oracle oinstall      0 Jan 13  2022 README.txt
+[oracle@node1 33509923]$
+[oracle@node1 33509923]$
+[oracle@node1 33509923]$ cd 33515361/
+[oracle@node1 33515361]$ $ORACLE_HOME/OPatch/opatch apply
+Oracle Interim Patch Installer version 12.2.0.1.29
+Copyright (c) 2022, Oracle Corporation.  All rights reserved.
+Oracle Home       : /data/app/oracle/product/19C/dbhome_3
+Central Inventory : /data/app/oraInventory
+   from           : /data/app/oracle/product/19C/dbhome_3/oraInst.loc
+OPatch version    : 12.2.0.1.29
+OUI version       : 12.2.0.7.0
+Log file location : /data/app/oracle/product/19C/dbhome_3/cfgtoollogs/opatch/opatch2022-10-29_14-47-01PM_1.log
+ 
+Verifying environment and performing prerequisite checks...
+OPatch continues with these patches:   33515361
+ 
+Do you want to proceed? [y|n]
+y
+.
+.
+.
+..
+ 
+ 
+ 
+.
+.
+Patching component oracle.rdbms.rsf.ic, 19.0.0.0.0...
+ 
+Patching component oracle.precomp.common, 19.0.0.0.0...
+ 
+Patching component oracle.precomp.lang, 19.0.0.0.0...
+ 
+Patching component oracle.jdk, 1.8.0.201.0...
+Patch 33515361 successfully applied.
+Sub-set patch [29517242] has become inactive due to the application of a super-set patch [33515361].
+Please refer to Doc ID 2161861.1 for any possible further required actions.
+Log file location: /data/app/oracle/product/19C/dbhome_3/cfgtoollogs/opatch/opatch2022-10-29_14-47-01PM_1.log
+ 
+OPatch succeeded.
+To check how many patches applied on database
+1
+[oracle@node1 33515361]$ $ORACLE_HOME/OPatch/opatch lsinventory | grep "applied on"
+Go to another patch folder and execute apply command.
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+[oracle@node1 33509923]$ cd 33529556
+[oracle@node1 33529556]$ $ORACLE_HOME/OPatch/opatch apply
+Oracle Interim Patch Installer version 12.2.0.1.29
+Copyright (c) 2022, Oracle Corporation. All rights reserved.
+Oracle Home : /data/app/oracle/product/19C/dbhome_3
+Central Inventory : /data/app/oraInventory
+from : /data/app/oracle/product/19C/dbhome_3/oraInst.loc
+OPatch version : 12.2.0.1.29
+OUI version : 12.2.0.7.0
+Log file location : /data/app/oracle/product/19C/dbhome_3/cfgtoollogs/opatch/opatch2022-10-29_16-03-28PM_1.log
+ 
+Verifying environment and performing prerequisite checks...
+.
+.
+.
+.
+.
+Connect to sqlplus utility and check invalid object count. Also make all pluggable database open.
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+[oracle@node1 ~]$ sqlplus / as sysdba
+ 
+SQL*Plus: Release 19.0.0.0.0 - Production on Sat Oct 29 16:06:06 2022
+Version 19.14.0.0.0
+ 
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+ 
+Connected to an idle instance.
+ 
+SQL> startup
+ORACLE instance started.
+ 
+Total System Global Area 1744827992 bytes
+Fixed Size                  9135704 bytes
+Variable Size             419430400 bytes
+Database Buffers         1308622848 bytes
+Redo Buffers                7639040 bytes
+Database mounted.
+Database opened.
+SQL>
+SQL>
+SQL> alter pluggable database all open;
+Pluggable database altered.
+SQL> select count(*) invalid_objects from user_objects where status= 'INVALID';
+ 
+INVALID_OBJECTS
+---------------
+              0
+now execute ./datapatch -verbose command.
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+[oracle@node1 33529556]$ cd $ORACLE_HOME/OPatch
+[oracle@node1 OPatch]$ ./datapatch -verbose
+SQL Patching tool version 19.14.0.0.0 Production on Sat Oct 29 16:57:35 2022
+Copyright (c) 2012, 2021, Oracle.  All rights reserved.
+ 
+Log file for this invocation: /data/app/oracle/cfgtoollogs/sqlpatch/sqlpatch_17770_2022_10_29_16_57_35/sqlpatch_invocation.log
+ 
+Connecting to database...OK
+Gathering database info...done.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+ 
+SQL Patching tool complete on Sat Oct 29 17:13:26 2022
+[oracle@node1 ~]$ cd $ORACLE_HOME/network/admin
+[oracle@node1 admin]$
+Now go to patch folder and execute apply command.
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+[oracle@node1 admin]$ sqlplus / as sysdba
+ 
+SQL*Plus: Release 19.0.0.0.0 - Production on Sat Oct 29 17:16:28 2022
+Version 19.14.0.0.0
+ 
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+ 
+Connected to an idle instance.
+ 
+SQL> startup
+ORACLE instance started.
+ 
+Total System Global Area 1744827992 bytes
+Fixed Size                  9135704 bytes
+Variable Size             687865856 bytes
+Database Buffers         1040187392 bytes
+Redo Buffers                7639040 bytes
+Database mounted.
+Database opened.
+SQL> alter pluggable database all open;
+ 
+Pluggable database altered.
+ 
+SQL> select count(*) invalid_objects from user_objects where status= 'INVALID';
+ 
+INVALID_OBJECTS
+---------------
+              0
+ 
+SQL>
+SQL>
+SQL> desc dba_registry_sqlpatch;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ INSTALL_ID                                NOT NULL NUMBER
+ PATCH_ID                                  NOT NULL NUMBER
+ PATCH_UID                                 NOT NULL NUMBER
+ PATCH_TYPE                                NOT NULL VARCHAR2(10)
+ ACTION                                    NOT NULL VARCHAR2(15)
+ STATUS                                    NOT NULL VARCHAR2(25)
+ ACTION_TIME                               NOT NULL TIMESTAMP(6)
+ DESCRIPTION                                        VARCHAR2(100)
+ LOGFILE                                   NOT NULL VARCHAR2(500)
+ RU_LOGFILE                                         VARCHAR2(500)
+ FLAGS                                              VARCHAR2(10)
+ PATCH_DESCRIPTOR                                   XMLTYPE
+ PATCH_DIRECTORY                                    BLOB
+ SOURCE_VERSION                                     VARCHAR2(15)
+ SOURCE_BUILD_DESCRIPTION                           VARCHAR2(80)
+ SOURCE_BUILD_TIMESTAMP                             TIMESTAMP(6)
+ TARGET_VERSION                                     VARCHAR2(15)
+ TARGET_BUILD_DESCRIPTION                           VARCHAR2(80)
+ TARGET_BUILD_TIMESTAMP                             TIMESTAMP(6)
+ 
+SQL>
+SQL>
+SQL> select PATCH_ID, STATUS from dba_registry_sqlpatch;
+ 
+  PATCH_ID STATUS
+---------- -------------------------
+  29517242 SUCCESS
+  33515361 SUCCESS
+ 
+-------------------
+ 
+Patch is applied successfully.
